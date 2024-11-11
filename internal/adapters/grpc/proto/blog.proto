@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package blog;
+
+option go_package = "github.com/toffysoft/go-hexagonal-example/internal/adapters/grpc/proto";
+
+service BlogService {
+  rpc CreateBlog (CreateBlogRequest) returns (BlogResponse) {}
+  rpc GetBlog (GetBlogRequest) returns (BlogResponse) {}
+  rpc UpdateBlog (UpdateBlogRequest) returns (BlogResponse) {}
+  rpc DeleteBlog (DeleteBlogRequest) returns (DeleteBlogResponse) {}
+  rpc ListBlogs (ListBlogsRequest) returns (ListBlogsResponse) {}
+}
+
+message Blog {
+  uint64 id = 1;
+  string title = 2;
+  string content = 3;
+  string author = 4;
+}
+
+message CreateBlogRequest {
+  string title = 1;
+  string content = 2;
+  string author = 3;
+}
+
+message GetBlogRequest {
+  uint64 id = 1;
+}
+
+message UpdateBlogRequest {
+  uint64 id = 1;
+  string title = 2;
+  string content = 3;
+  string author = 4;
+}
+
+message DeleteBlogRequest {
+  uint64 id = 1;
+}
+
+message DeleteBlogResponse {
+  bool success = 1;
+}
+
+message ListBlogsRequest {}
+
+message BlogResponse {
+  Blog blog = 1;
+}
+
+message ListBlogsResponse {
+  repeated Blog blogs = 1;
+}
